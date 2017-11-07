@@ -2,6 +2,9 @@ package pl.jkan.weatherapp;
 
 public class Cli {
     public static void main(String[] args) {
-        System.out.println("it works");
+        String city = "Krakow";
+        Double temp = 13.50;
+
+        System.out.printf("Weather in %s: Temp: %s\n", city, temp);
     }
 }
