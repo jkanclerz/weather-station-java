@@ -1,11 +1,19 @@
 package pl.jkan.weatherapp;
 
+import pl.jkan.weatherstation.WeatherStation;
+import pl.jkan.weatherstation.FakeTempSensor;
+import pl.jkan.weatherstation.TempSensor;
+
 public class Cli {
     public static void main(String[] args) {
         String city = "Krakow";
-        Double temp = 13.50;
+        
+        TempSensor tempSensor = new FakeTempSensor();
+        WeatherStation station = new WeatherStation(tempSensor);
 
-        System.out.printf("Weather in %s: Temp: %s\n", city, temp);
+        Double temp = station.temperature();
+
+        System.out.printf("Weather in %s| Temp: %s\n", city, temp);
     }
 }
 
