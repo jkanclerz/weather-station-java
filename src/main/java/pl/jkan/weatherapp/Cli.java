@@ -8,3 +8,4 @@ public class Cli {
         System.out.printf("Weather in %s: Temp: %s\n", city, temp);
     }
 }
+
