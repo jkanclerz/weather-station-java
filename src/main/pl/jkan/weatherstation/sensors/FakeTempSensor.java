@@ -1,4 +1,6 @@
-package pl.jkan.weatherstation;
+package pl.jkan.weatherstation.sensors;
+
+import pl.jkan.weatherstation.TempSensor;
 
 public class FakeTempSensor implements TempSensor {
   public double read() {
