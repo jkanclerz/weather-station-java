@@ -26,32 +26,27 @@ public class Cli {
         String url = String.format("%s?q=%s&APPID=%s&units=metric", Cli.endpoint, city, System.getenv("OPEN_WEATHER_API_KEY"));
 
         try {
-            String data = Cli.get(url);
-
+            InputStream is = new URL(url).openStream();
             try {
-                Matcher m = p.matcher(data);
-                m.find();
+                BufferedReader rd = new BufferedReader(new InputStreamReader(is, Charset.forName("UTF-8")));
+                String data = Cli.readAll(rd);
 
-                Double temp = Double.parseDouble(m.group("temperature"));
+                try {
+                    Matcher m = p.matcher(data);
+                    m.find();
 
-                System.out.printf("Weather in %s| Temp: %s\n", city, temp);
-            } catch (Exception e) {
-                System.out.printf("Weather in %s| Temp: %s\n", city, -99.99);
+                    Double temp = Double.parseDouble(m.group("temperature"));
+
+                    System.out.printf("Weather in %s| Temp: %s\n", city, temp);
+                } catch (Exception e) {
+                    System.out.printf("Weather in %s| Temp: %s\n", city, -99.99);
+                }
+
+            } finally {
+                is.close();
             }
         } catch (IOException e) {
             e.printStackTrace();
-        }
-    }
-
-
-    public static String get(String url) throws IOException {
-        InputStream is = new URL(url).openStream();
-        try {
-            BufferedReader rd = new BufferedReader(new InputStreamReader(is, Charset.forName("UTF-8")));
-            return readAll(rd);
-
-        } finally {
-            is.close();
         }
     }
 
